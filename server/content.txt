@@ -1,0 +1,32 @@
+PROJECT FLOW -
+User login/signup
+↓
+Select role (Frontend, MERN, Java Backend, etc.)
+↓
+Select experience level
+↓
+Start Interview
+↓
+AI generates first question
+↓
+AI animation visible
+↓
+Browser Text-to-Speech speaks question
+↓
+User answers via mic
+↓
+Browser Speech-to-Text converts voice to text
+↓
+Backend receives answer
+↓
+Gemini evaluates answer
+↓
+Gemini generates follow-up question
+↓
+Repeat 5–10 questions
+↓
+Generate final report
+↓
+Save report in MongoDB
+↓
+Show report page
