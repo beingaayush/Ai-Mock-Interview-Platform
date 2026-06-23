@@ -1,12 +1,17 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-const interviewRoutes = require("./routes/interviewRoutes");
+const connectDB = require("./src/config/db")
+const interviewRoutes = require("./src/routes/interviewRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+connectDB();
+
 
 app.use("/api/interview", interviewRoutes);
 

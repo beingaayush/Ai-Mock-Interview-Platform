@@ -49,7 +49,9 @@ Do not return any text before or after the JSON.
 `,
   });
 
-  return JSON.parse(response.text);
+  // return JSON.parse(response.text);
+  const clean = response.text.replace(/```json|```/g, "").trim();
+  return JSON.parse(clean);
 }
 
 async function generateReport(interviewHistory) {
@@ -79,7 +81,9 @@ Do not return any text before or after the JSON.
 `,
   });
 
-  return JSON.parse(response.text);
+  // return JSON.parse(response.text);
+  const clean = response.text.replace(/```json|```/g, "").trim();
+  return JSON.parse(clean);
 }
 
 
