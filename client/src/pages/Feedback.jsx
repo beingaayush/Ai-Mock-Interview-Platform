@@ -1,14 +1,61 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Feedback = () => {
+  const location = useLocation();
   const navigate = useNavigate();
 
+  // Interview page se bheja gaya report data yahan receive hoga
+  const { report } = location.state || {};
+
+  if (!report) {
+    return (
+      <div className="container">
+        <h2>No Report Found</h2>
+        <p>Please complete an interview first.</p>
+        <button onClick={() => navigate('/')}>Go to Home</button>
+      </div>
+    );
+  }
+
   return (
-    <div className="container">
-      <h2>Interview Report</h2>
-      <p>Your Score: 8/10</p>
-      <button onClick={() => navigate('/')}>Go to Home</button>
+    <div className="container" style={{ maxWidth: '600px', textAlign: 'left' }}>
+      <h2 style={{ textAlign: 'center' }}>Interview Final Report</h2>
+
+      {/* SCORE & SUMMARY */}
+      <div style={{ background: '#e9ecef', padding: '15px', borderRadius: '8px', marginBottom: '15px' }}>
+        <h3 style={{ margin: '0 0 10px 0', color: '#007bff' }}>Overall Score: {report.score}/10</h3>
+        <p style={{ margin: 0, fontWeight: 'bold' }}>Summary:</p>
+        <p style={{ margin: '5px 0 0 0' }}>{report.summary}</p>
+      </div>
+
+      {/* STRENGTHS */}
+      <div style={{ marginBottom: '15px' }}>
+        <h4 style={{ color: '#28a745', marginBottom: '5px' }}>✅ Strengths:</h4>
+        <ul style={{ margin: 0, paddingLeft: '20px' }}>
+          {report.strengths?.map((item, index) => <li key={index}>{item}</li>)}
+        </ul>
+      </div>
+
+      {/* WEAKNESSES */}
+      <div style={{ marginBottom: '15px' }}>
+        <h4 style={{ color: '#dc3545', marginBottom: '5px' }}>❌ Weaknesses:</h4>
+        <ul style={{ margin: 0, paddingLeft: '20px' }}>
+          {report.weaknesses?.map((item, index) => <li key={index}>{item}</li>)}
+        </ul>
+      </div>
+
+      {/* IMPROVEMENT AREAS */}
+      <div style={{ marginBottom: '20px' }}>
+        <h4 style={{ color: '#ffc107', marginBottom: '5px' }}>💡 Areas for Improvement:</h4>
+        <ul style={{ margin: 0, paddingLeft: '20px' }}>
+          {report.improvementAreas?.map((item, index) => <li key={index}>{item}</li>)}
+        </ul>
+      </div>
+
+      <button onClick={() => navigate('/')} style={{ width: '100%' }}>
+        Back to Home
+      </button>
     </div>
   );
 };

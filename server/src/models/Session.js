@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const sessionSchema = new mongoose.Schema(
   {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true, // Yeh ensure karega ki bina user ke session na bane
+    },
     role: String,
     experience: String,
 

@@ -8,8 +8,10 @@ const MAX_QUESTIONS = 8; // Yahan limit set ki hai
 async function startSession(req, res) {
   try {
     const { role, experience } = req.body;
+    const { userId, role, experience } = req.body;
 
     const session = await Session.create({
+      userId,
       role,
       experience,
       questions: [],
@@ -75,6 +77,7 @@ async function getNextQuestion(req, res) {
 
       // Final report ko nayi 'Interview' table me save kar rahe hain
       const savedInterview = await Interview.create({
+        userId: session.userId,
         role: session.role,
         questions: session.questions,
         score: report.score || 0,
