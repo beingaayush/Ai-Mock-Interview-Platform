@@ -108,49 +108,87 @@ const Interview = () => {
   if (!sessionId) return <div className="container">Please start from the Home page.</div>;
 
   return (
-    <div className="container">
-      <h2>Live Interview</h2>
+    <div className="interview-grid">
       
-      <p style={{ fontWeight: 'bold', fontSize: '18px' }}>{question}</p>
-
-      {/* WAVE ANIMATION */}
-      {isAISpeaking && (
-        <div className="ai-wave-container">
-          <div className="wave-bar"></div>
-          <div className="wave-bar"></div>
-          <div className="wave-bar"></div>
-          <div className="wave-bar"></div>
-          <div className="wave-bar"></div>
+      {/* ================= LEFT COLUMN (AI) ================= */}
+      <div className="ai-column">
+        <h3 style={{ color: '#818cf8', marginBottom: '20px' }}>AI Interviewer</h3>
+        
+        {/* Naya Bada Animation */}
+        <div className={`ai-wave-large ${isAISpeaking ? 'speaking' : ''}`}>
+          <div className="wave-bar-large"></div>
+          <div className="wave-bar-large"></div>
+          <div className="wave-bar-large"></div>
+          <div className="wave-bar-large"></div>
+          <div className="wave-bar-large"></div>
         </div>
-      )}
 
-      <div className="form-group" style={{ marginTop: '20px' }}>
-        <textarea 
-          rows="4" 
-          value={answer} 
-          onChange={(e) => setAnswer(e.target.value)}
-          placeholder="Your spoken answer will appear here... (You can also type)"
-          style={{ width: '100%', padding: '10px', borderRadius: '6px' }}
-        />
+        <p style={{ 
+          marginTop: '20px', 
+          fontWeight: '600', 
+          color: isAISpeaking ? '#c7d2fe' : '#64748b' 
+        }}>
+          {isAISpeaking ? '🎙️ AI is speaking...' : 'Waiting...'}
+        </p>
       </div>
 
-      {isListening && <p className="recording-status">🔴 Listening... (Click Stop when done)</p>}
 
-      {/* CONTROLS */}
-      <button 
-        onClick={toggleListening} 
-        disabled={isAISpeaking || loading}
-        style={{ 
-          backgroundColor: isListening ? '#dc3545' : '#28a745', 
-          marginRight: '10px' 
-        }}
-      >
-        {isListening ? '🛑 Stop Listening' : '🎤 Speak Answer'}
-      </button>
+      {/* ================= RIGHT COLUMN (USER) ================= */}
+      <div className="qa-column">
+        <h2 style={{ marginBottom: '25px' }}>Live Interview</h2>
+        
+        {/* AI Ka Question */}
+        <p style={{ 
+          fontWeight: '600', 
+          fontSize: '1.1rem', 
+          color: '#f1f5f9', 
+          backgroundColor: 'rgba(0,0,0,0.2)', 
+          padding: '15px', 
+          borderRadius: '8px',
+          borderLeft: '4px solid #818cf8'
+        }}>
+          {question}
+        </p>
 
-      <button onClick={handleSubmit} disabled={loading || isAISpeaking}>
-        {loading ? 'Submitting...' : 'Submit Answer'}
-      </button>
+        {/* User ka Answer Box */}
+        <div className="form-group" style={{ flexGrow: 1, marginTop: '20px' }}>
+          <textarea 
+            value={answer} 
+            onChange={(e) => setAnswer(e.target.value)}
+            placeholder="Your spoken answer will appear here... (You can also type)"
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              minHeight: '150px',
+              padding: '15px', 
+              borderRadius: '8px',
+              resize: 'none'
+            }}
+          />
+        </div>
+
+        {isListening && <p className="recording-status">🔴 Recording your answer...</p>}
+
+        {/* Buttons */}
+        <div style={{ display: 'flex', gap: '15px', marginTop: '15px' }}>
+          <button 
+            onClick={toggleListening} 
+            disabled={isAISpeaking || loading}
+            style={{ 
+              background: isListening ? '#ef4444' : 'transparent',
+              border: '2px solid #818cf8',
+              color: isListening ? 'white' : '#818cf8',
+              boxShadow: 'none'
+            }}
+          >
+            {isListening ? '🛑 Stop Recording' : '🎤 Speak Answer'}
+          </button>
+
+          <button onClick={handleSubmit} disabled={loading || isAISpeaking}>
+            {loading ? 'Submitting...' : 'Submit Answer'}
+          </button>
+        </div>
+      </div>
 
     </div>
   );

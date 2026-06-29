@@ -1,0 +1,60 @@
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+
+const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/login', formData);
+      
+      // Token aur User ID browser me save kar rahe hain
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.user.id);
+      localStorage.setItem('userName', response.data.user.name);
+      
+      navigate('/'); // Login hote hi Home page par bhej denge
+    } catch (error) {
+      alert(error.response?.data?.message || "Login failed!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Email:</label>
+          <input 
+            type="email" 
+            required 
+            onChange={(e) => setFormData({...formData, email: e.target.value})} 
+          />
+        </div>
+        <div className="form-group">
+          <label>Password:</label>
+          <input 
+            type="password" 
+            required 
+            onChange={(e) => setFormData({...formData, password: e.target.value})} 
+          />
+        </div>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
+      </form>
+      <p style={{ marginTop: '15px' }}>
+        Don't have an account? <Link to="/signup">Sign up here</Link>
+      </p>
+    </div>
+  );
+};
+
+export default Login;

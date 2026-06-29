@@ -7,8 +7,8 @@ const MAX_QUESTIONS = 8; // Yahan limit set ki hai
 // 1. START SESSION
 async function startSession(req, res) {
   try {
-    const { role, experience } = req.body;
     const { userId, role, experience } = req.body;
+    console.log("Received data:", { userId, role, experience });
 
     const session = await Session.create({
       userId,
@@ -32,6 +32,37 @@ async function startSession(req, res) {
     res.status(500).json({ message: err.message });
   }
 }
+
+// async function startSession(req, res) {
+//   try {
+//     const { userId, role, experience } = req.body;
+    
+//     // 1. Validation: Check karein kya userId valid string hai
+//     if (!userId) return res.status(400).json({ message: "userId is missing" });
+
+//     // 2. Explicit Conversion: MongoDB ko batayein ki ye string ek ObjectId hai
+//     const validUserId = new mongoose.Types.ObjectId(userId);
+
+//     // 3. Create Session
+//     const session = await Session.create({
+//       userId: validUserId, 
+//       role,
+//       experience,
+//       questions: [],
+//       currentIndex: 0,
+//       isCompleted: false,
+//     });
+
+//     res.status(201).json({ sessionId: session._id, question: "Introduce yourself..." });
+    
+//   } catch (error) {
+//     // Ab ye error terminal mein 100% dikhega
+//     console.error("DEBUG ERROR:", error); 
+//     res.status(500).json({ message: "Server Error: " + error.message });
+//   }
+// }
+
+
 
 // 2. NEXT QUESTION OR FINAL REPORT
 async function getNextQuestion(req, res) {

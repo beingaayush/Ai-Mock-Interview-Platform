@@ -1,74 +1,186 @@
+/* Import Modern Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* React Root Wrapper Fix */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f7fb;
+  font-family: 'Inter', sans-serif;
+  /* Aapka deep mashed dark gradient */
+  background: linear-gradient(135deg, #08070E 0%, #2E2357 100%);
+  color: #e2e8f0; /* Light text for dark background */
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar Styling - Dark Glass Effect */
+.navbar {
+  background: rgba(8, 7, 14, 0.7);
+  backdrop-filter: blur(12px);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #c7d2fe; /* Light Indigo for contrast */
+  cursor: pointer;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: 500;
+  color: #f1f5f9;
+}
+
+.nav-btn {
+  background: transparent;
+  color: #f87171;
+  border: 1px solid #f87171;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 0;
+  width: auto;
+}
+
+.nav-btn:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+/* Main Layout Centering */
+.main-content {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
+  padding: 2rem;
 }
 
+/* Modern Dark Card */
 .container {
-  background: white;
+  background: rgba(30, 25, 50, 0.5); /* Semi-transparent indigo tint */
+  backdrop-filter: blur(16px);
   padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
   text-align: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-h1, h2 {
-  color: #333;
-  margin-bottom: 10px;
+/* Typography for Dark Theme */
+h1, h2, h3, h4 {
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-weight: 700;
 }
+
+h3 { margin-top: 0; }
 
 p {
-  color: #666;
-  margin-bottom: 20px;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin-bottom: 25px;
 }
 
+/* Inputs & Forms */
 .form-group {
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #444;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #94a3b8;
+  font-size: 0.9rem;
 }
 
-input, select, button {
+input, select, textarea {
   width: 100%;
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font-size: 15px;
+  transition: all 0.2s ease;
   box-sizing: border-box;
-  font-size: 16px;
+  font-family: inherit;
 }
 
+::placeholder {
+  color: #64748b;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Select options fix for dark mode */
+select option {
+  background-color: #2E2357; 
+  color: white;
+}
+
+/* Vibrant Buttons */
 button {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
   color: white;
   border: none;
   cursor: pointer;
-  font-weight: bold;
-  margin-top: 10px;
-  transition: background 0.3s;
+  font-weight: 600;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
 }
 
 button:hover {
-  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 button:disabled {
-  background-color: #a0c4ff;
+  background: #475569;
+  color: #94a3b8;
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
-/* AI Wave Animation */
+/* AI Wave Animation (Neon Glow for Dark Mode) */
 .ai-wave-container {
   display: flex;
   justify-content: center;
@@ -81,9 +193,10 @@ button:disabled {
 .wave-bar {
   width: 8px;
   height: 10px;
-  background-color: #007bff;
+  background-color: #818cf8;
   border-radius: 10px;
   animation: wave 1s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(129, 140, 248, 0.8);
 }
 
 .wave-bar:nth-child(2) { animation-delay: 0.1s; }
@@ -93,18 +206,177 @@ button:disabled {
 
 @keyframes wave {
   0%, 100% { height: 10px; }
-  50% { height: 40px; }
+  50% { 
+    height: 40px; 
+    background-color: #c7d2fe; 
+    box-shadow: 0 0 20px rgba(199, 210, 254, 0.9); 
+  }
 }
 
 .recording-status {
-  color: red;
-  font-weight: bold;
-  animation: blink 1s infinite;
-  margin-top: 10px;
+  color: #f87171;
+  font-weight: 600;
+  animation: blink 1.5s infinite;
+  margin-top: 15px;
+  font-size: 0.9rem;
 }
 
 @keyframes blink {
   0% { opacity: 1; }
-  50% { opacity: 0; }
+  50% { opacity: 0.4; }
   100% { opacity: 1; }
+}
+
+/* Links */
+a {
+  color: #818cf8;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #c7d2fe;
+  text-decoration: underline;
+}
+
+/* =========================================
+   SPLIT SCREEN LAYOUT FOR INTERVIEW PAGE
+   ========================================= */
+.interview-grid {
+  display: flex;
+  width: 100%;
+  max-width: 1000px; /* Wider for 2 columns */
+  gap: 30px;
+  align-items: stretch;
+}
+
+/* Left Side: AI Representation */
+.ai-column {
+  flex: 1;
+  background: rgba(30, 25, 50, 0.4);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Right Side: Q&A Form */
+.qa-column {
+  flex: 1.5;
+  background: rgba(30, 25, 50, 0.6);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make it responsive for mobile/small screens */
+@media (max-width: 768px) {
+  .interview-grid {
+    flex-direction: column;
+  }
+}
+
+/* Huge AI Wave Animation for Left Column */
+.ai-wave-large {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  height: 120px; /* Big height area */
+  margin: 30px 0;
+}
+
+.wave-bar-large {
+  width: 12px;
+  height: 20px;
+  background-color: #4f46e5;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+  transition: all 0.3s ease;
+}
+
+/* When AI is speaking, trigger the big animation */
+.speaking .wave-bar-large {
+  animation: wave-large 1s ease-in-out infinite;
+}
+
+.speaking .wave-bar-large:nth-child(2) { animation-delay: 0.1s; }
+.speaking .wave-bar-large:nth-child(3) { animation-delay: 0.2s; }
+.speaking .wave-bar-large:nth-child(4) { animation-delay: 0.3s; }
+.speaking .wave-bar-large:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes wave-large {
+  0%, 100% { height: 20px; background-color: #4f46e5; }
+  50% { 
+    height: 110px; 
+    background-color: #c7d2fe; 
+    box-shadow: 0 0 30px rgba(199, 210, 254, 0.9); 
+  }
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVENESS FIXES
+   ========================================= */
+@media (max-width: 600px) {
+  /* Navbar ki spacing mobile ke liye kam ki hai */
+  .navbar {
+    padding: 10px 15px;
+  }
+  
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+  
+  /* Main content ki side padding kam ki hai taaki width zyada mile */
+  .main-content {
+    padding: 1rem;
+  }
+  
+  /* Container (Cards) ki padding mobile par thodi kam ki hai */
+  .container {
+    padding: 1.5rem;
+  }
+  
+  /* Interview grid me left-right gap kam kiya hai mobile ke liye */
+  .ai-column, .qa-column {
+    padding: 20px;
+  }
+}
+
+
+/* =========================================
+   FOOTER STYLING (PERFECT FIX)
+   ========================================= */
+.footer {
+  margin-top: auto; /* Ye isko ab exactly bottom par push karega */
+  text-align: center;
+  padding: 15px 20px;
+  color: #64748b;
+  font-size: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer a {
+  color: #818cf8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: #c7d2fe;
+  text-decoration: underline;
 }

@@ -10,10 +10,19 @@ const RoleSelection = () => {
 
   const handleStart = async () => {
     if (!role.trim()) return alert("Please enter a Job Role first!");
+    const userId = localStorage.getItem('userId');
+    console.log("Sending userId to backend:", userId);
+  
+    if (!userId) {
+    alert("User not found! Please login again.");
+    navigate('/login');
+    return;
+    }
     setLoading(true);
     try {
       // Backend ko request bhej rahe hain
       const response = await axios.post('http://localhost:5000/api/interview/start-session', {
+        userId,
         role,
         experience
       });

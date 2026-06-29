@@ -23,10 +23,10 @@ const Feedback = () => {
       <h2 style={{ textAlign: 'center' }}>Interview Final Report</h2>
 
       {/* SCORE & SUMMARY */}
-      <div style={{ background: '#e9ecef', padding: '15px', borderRadius: '8px', marginBottom: '15px' }}>
-        <h3 style={{ margin: '0 0 10px 0', color: '#007bff' }}>Overall Score: {report.score}/10</h3>
-        <p style={{ margin: 0, fontWeight: 'bold' }}>Summary:</p>
-        <p style={{ margin: '5px 0 0 0' }}>{report.summary}</p>
+      <div style={{ background: 'rgba(0, 0, 0, 0.2)', border: '1px solid rgba(255,255,255,0.1)', padding: '15px', borderRadius: '8px', marginBottom: '15px' }}>
+        <h3 style={{ margin: '0 0 10px 0', color: '#818cf8' }}>Overall Score: {report.score}/10</h3>
+        <p style={{ margin: 0, fontWeight: 'bold', color: '#e2e8f0' }}>Summary:</p>
+        <p style={{ margin: '5px 0 0 0', color: '#cbd5e1' }}>{report.summary}</p>
       </div>
 
       {/* STRENGTHS */}
