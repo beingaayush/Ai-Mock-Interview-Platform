@@ -19,11 +19,11 @@ const Interview = () => {
   const [recognition, setRecognition] = useState(null);
 
   useEffect(() => {
-    // Component mount hone par recognition setup karein
+    // Set up recognition once the component is mounted.
     if (SpeechRecognition) {
       const recog = new SpeechRecognition();
-      recog.continuous = true; // Isse mic apne aap band nahi hoga
-      recog.interimResults = false; // Sirf final words dikhayega
+      recog.continuous = true; // This will not turn off the mic automatically..
+      recog.interimResults = false; // will show only the final words
       setRecognition(recog);
     }
   }, []);
@@ -60,7 +60,7 @@ const Interview = () => {
     recognition.onstart = () => setIsListening(true);
     
     recognition.onresult = (event) => {
-      // Jo naya bola gaya hai, usko existing answer me add karo
+      // Add what has been newly stated to the existing answer.
       const transcript = event.results[event.results.length - 1][0].transcript;
       setAnswer((prev) => prev + " " + transcript);
     };
@@ -81,7 +81,7 @@ const Interview = () => {
   // SUBMIT ANSWER TO BACKEND
   const handleSubmit = async () => {
     if (!answer.trim()) return alert("Please answer the question before submitting.");
-    if (isListening) recognition.stop(); // Submit karte waqt mic band kar do
+    if (isListening) recognition.stop(); // while submiting turn off the mic
     
     setLoading(true);
     try {
@@ -137,7 +137,7 @@ const Interview = () => {
       <div className="qa-column">
         <h2 style={{ marginBottom: '25px' }}>Live Interview</h2>
         
-        {/* AI Ka Question */}
+        {/* AI's Question properties */}
         <p style={{ 
           fontWeight: '600', 
           fontSize: '1.1rem', 
@@ -150,7 +150,7 @@ const Interview = () => {
           {question}
         </p>
 
-        {/* User ka Answer Box */}
+        {/* User's Answer box' */}
         <div className="form-group" style={{ flexGrow: 1, marginTop: '20px' }}>
           <textarea 
             value={answer} 

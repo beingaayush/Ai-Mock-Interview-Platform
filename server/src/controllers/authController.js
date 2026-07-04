@@ -48,7 +48,6 @@ async function loginUser(req, res) {
     }
 
     // Generate JWT Token
-    // Note: Use a strong secret key in .env file (e.g., JWT_SECRET=mysecretkey)
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || "fallback_secret", {
       expiresIn: "1d",
     });

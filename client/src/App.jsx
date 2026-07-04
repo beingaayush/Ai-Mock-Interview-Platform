@@ -65,9 +65,9 @@ const PrivateRoute = ({ children }) => {
 function App() {
   return (
     <Router>
-      <Navbar /> {/* <-- Har page ke upar Navbar dikhega */}
+      <Navbar /> {/* Navbar will appear at the top of every page. */}
       
-      <div className="main-content"> {/* <-- Isse saare cards properly center me aayenge */}
+      <div className="main-content"> {/* This will ensure all the cards are properly centered. */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

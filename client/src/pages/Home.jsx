@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const navigate = useNavigate();
   
-  // Local storage se user details nikal rahe hain
+  // Retrieving user details from local storage.
   const token = localStorage.getItem('token');
   const userName = localStorage.getItem('userName');
 
   const handleLogout = () => {
-    localStorage.clear(); // Saara saved data hata do
+    localStorage.clear(); // remove all saved data
     navigate('/login');
   };
 
@@ -23,9 +23,6 @@ const Home = () => {
           <button onClick={() => navigate('/setup')} style={{ marginBottom: '10px' }}>
             Start New Interview
           </button>
-          {/* <button onClick={handleLogout} style={{ backgroundColor: '#dc3545' }}>
-            Logout
-          </button> */}
         </>
       ) : (
         <>

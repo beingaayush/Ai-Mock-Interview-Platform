@@ -5,7 +5,7 @@ const Feedback = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Interview page se bheja gaya report data yahan receive hoga
+  // The report data sent from the interview page will be received here.
   const { report } = location.state || {};
 
   if (!report) {

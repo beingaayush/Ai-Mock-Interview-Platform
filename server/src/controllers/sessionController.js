@@ -1,8 +1,8 @@
 const Session = require("../models/Session");
-const Interview = require("../models/Interview"); // Final report save karne ke liye
+const Interview = require("../models/Interview"); // For saving the final Report/Feedback
 const { generateFirstQuestion, evaluateAnswer, generateReport } = require("../services/geminiService");
 
-const MAX_QUESTIONS = 8; // Yahan limit set ki hai
+const MAX_QUESTIONS = 8; // Question Limit
 
 // 1. START SESSION
 async function startSession(req, res) {
@@ -21,7 +21,7 @@ async function startSession(req, res) {
 
     const question = await generateFirstQuestion(role);
 
-    // Pehla question save kar rahe hain (bina answer ke)
+    // Saving the first qn (without answer)
     session.questions.push({ question, answer: "" });
     session.currentIndex = 1;
 
@@ -32,36 +32,6 @@ async function startSession(req, res) {
     res.status(500).json({ message: err.message });
   }
 }
-
-// async function startSession(req, res) {
-//   try {
-//     const { userId, role, experience } = req.body;
-    
-//     // 1. Validation: Check karein kya userId valid string hai
-//     if (!userId) return res.status(400).json({ message: "userId is missing" });
-
-//     // 2. Explicit Conversion: MongoDB ko batayein ki ye string ek ObjectId hai
-//     const validUserId = new mongoose.Types.ObjectId(userId);
-
-//     // 3. Create Session
-//     const session = await Session.create({
-//       userId: validUserId, 
-//       role,
-//       experience,
-//       questions: [],
-//       currentIndex: 0,
-//       isCompleted: false,
-//     });
-
-//     res.status(201).json({ sessionId: session._id, question: "Introduce yourself..." });
-    
-//   } catch (error) {
-//     // Ab ye error terminal mein 100% dikhega
-//     console.error("DEBUG ERROR:", error); 
-//     res.status(500).json({ message: "Server Error: " + error.message });
-//   }
-// }
-
 
 
 // 2. NEXT QUESTION OR FINAL REPORT
@@ -75,16 +45,16 @@ async function getNextQuestion(req, res) {
       return res.status(400).json({ message: "Interview already completed!" });
     }
 
-    // AI se answer evaluate karwa rahe hain
+    // Evaluating the answer through Ai
     const result = await evaluateAnswer(question, answer);
 
-    // Database me user ka answer save kar rahe hain
+    // saving the answer of the user in the database
     const lastIndex = session.questions.length - 1;
     session.questions[lastIndex].answer = answer;
 
-    // CHECK: Kya hum 8 questions tak pahunch gaye?
+    // CHECK: have we reached to our max qn limit (currently it's 8)?
     if (session.currentIndex < MAX_QUESTIONS) {
-      // Agar 8 se kam hai -> Next Question generate karo
+      // if Qn asked till now by Ai is less than 8 then -> generate next Qn 
       const nextQ = result.nextQuestion;
       
       session.questions.push({ question: nextQ, answer: "" });
@@ -100,13 +70,13 @@ async function getNextQuestion(req, res) {
       });
 
     } else {
-      // Agar 8 questions pure ho gaye -> Final Report generate karo
+      // If reached the limit (8 qns have been asked) -> Generate the final report
       session.isCompleted = true;
       await session.save();
 
       const report = await generateReport(session.questions);
 
-      // Final report ko nayi 'Interview' table me save kar rahe hain
+      // Saving the final report in new 'interview' table
       const savedInterview = await Interview.create({
         userId: session.userId,
         role: session.role,
@@ -120,7 +90,7 @@ async function getNextQuestion(req, res) {
 
       return res.json({
         evaluation: result.evaluation,
-        isCompleted: true, // Frontend ko pata chal jayega ki interview khatam
+        isCompleted: true, // The frontend will know that the interview is over.
         report: report,
         finalReportId: savedInterview._id
       });

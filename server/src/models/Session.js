@@ -5,7 +5,7 @@ const sessionSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true, // Yeh ensure karega ki bina user ke session na bane
+      required: true, // it will ensure No session without User
     },
     role: String,
     experience: String,

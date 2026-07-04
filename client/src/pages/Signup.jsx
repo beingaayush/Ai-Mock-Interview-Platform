@@ -8,12 +8,12 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Page refresh hone se rokega
+    e.preventDefault(); // Prevent from Page refresh
     setLoading(true);
     try {
       await axios.post('http://localhost:5000/api/auth/register', formData);
       alert("Signup successful! Please login.");
-      navigate('/login'); // Register hote hi login page par bhej denge
+      navigate('/login'); // redirect to login page just regiser/sign up
     } catch (error) {
       alert(error.response?.data?.message || "Signup failed!");
     } finally {

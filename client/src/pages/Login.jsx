@@ -13,12 +13,12 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', formData);
       
-      // Token aur User ID browser me save kar rahe hain
+      // saving Token and User ID in the browser
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userId', response.data.user.id);
       localStorage.setItem('userName', response.data.user.name);
       
-      navigate('/'); // Login hote hi Home page par bhej denge
+      navigate('/'); // redirect to the Homepage just after logged in
     } catch (error) {
       alert(error.response?.data?.message || "Login failed!");
     } finally {

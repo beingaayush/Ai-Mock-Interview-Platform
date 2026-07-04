@@ -20,15 +20,15 @@ const RoleSelection = () => {
     }
     setLoading(true);
     try {
-      // Backend ko request bhej rahe hain
+      // sending request to backend
       const response = await axios.post('http://localhost:5000/api/interview/start-session', {
         userId,
         role,
         experience
       });
 
-      // API se data aane ke baad Interview page par bhejenge
-      // 'state' ke andar hum data pass kar rahe hain taaki next page ise use kar sake
+      // After receiving the data from the API, we will send it to the interview page
+      // We are passing data within the 'state' so that we can use it in next page
       navigate('/interview', {
         state: {
           sessionId: response.data.sessionId,
