@@ -12,7 +12,7 @@ const Signup = () => {
     setLoading(true);
     try {
       const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-      await axios.post('${API_URL}/api/auth/register', formData);
+      await axios.post(`${API_URL}/api/auth/register`, formData);
       alert("Signup successful! Please login.");
       navigate('/login'); // redirect to login page just regiser/sign up
     } catch (error) {

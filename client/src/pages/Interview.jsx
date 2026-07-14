@@ -85,13 +85,6 @@ const Interview = () => {
     
     setLoading(true);
     try {
-      // const response = await axios.post('http://localhost:5000/api/interview/next-question', {
-      //   sessionId,
-      //   question,
-      //   answer
-      // });
-      
-      // Vite automatically import.meta.env se variables uthata hai
       const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
   
       const response = await axios.post(`${API_URL}/api/interview/next-question`, {
