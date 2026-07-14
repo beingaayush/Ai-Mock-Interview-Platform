@@ -7,7 +7,12 @@ const authRoutes = require("./src/routes/authRoutes");
 
 const app = express();
 
-app.use(cors());
+// CORS updated to accept requests from your Vercel frontend
+app.use(cors({
+    origin: process.env.FRONTEND_URL || "*", 
+    credentials: true
+}));
+
 app.use(express.json());
 
 connectDB();
@@ -16,6 +21,9 @@ connectDB();
 app.use("/api/auth", authRoutes);
 app.use("/api/interview", interviewRoutes);
 
-app.listen(5000, () =>{
+// Dynamic Port for Render
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () =>{
     console.log("server running on port 5000");
 });
